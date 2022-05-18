@@ -13,6 +13,6 @@ print(a)
 
 # Sum them up
 
-# Another way to code this is:
+# Another way to code this in one line is:
 b = sum([x for x in range(1000) if x % 3==0 or x % 5==0])
 print(b)

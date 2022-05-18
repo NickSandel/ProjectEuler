@@ -2,33 +2,40 @@
 
 # What is the largest prime factor of the number 600851475143 ? 600,851,475,143
 
-# Find all divisors first then figure out if they're prime?
+# Find all factors first then figure out if they're prime?
 # Cut out all of the even numbers to speed it up?
 # 150212868786 is 1/4 of 600851475143 because there's no point trying to go higher than halfway and then no point looking at even numbers when I'm after primes so why even process those?
 
+# Divisor and Factors
+# The divisor is any number that divides another number. 
+# A factor, however, is a divisor that divides the number entirely and leaves no remainder. 
+# So, all factors of a number are its factors. But not all factors will be factors.
 
 # for num in range(2, 150212868786):
 #     if 600851475143 % (num * 2 - 1) == 0:
 #         print(num * 2 - 1)
 
+from cmath import sqrt
+
+
 bignum = 600851475143
-divisors = []
+factors = []
 for r in range(2, round(bignum/4)):
     if bignum % (r * 2 - 1) == 0: # This is cool, gets you onto the odd numbers only
-        divisors.append(r * 2 - 1)
-        if len(divisors) > 1:
-            if divisors[len(divisors)-1] * divisors[len(divisors)-2] == bignum:
+        factors.append(r * 2 - 1)
+        if len(factors) > 1:
+            if factors[len(factors)-1] * factors[len(factors)-2] == bignum: # Apparently this is a proxy for something in maths which says that to find a divisor
                 break
 
-for i in range(len(divisors)-2):
-    print(divisors[i])
-    divisors.append(int(bignum/divisors[i]))
+for i in range(len(factors)-2):
+    print(factors[i])
+    factors.append(int(bignum/factors[i]))
 
-print(divisors)
+print(factors)
 
-# Find out which divisors are primes
+# Find out which factors are primes
 not_primes = []
-for divisor in divisors:
+for divisor in factors:
     for x in range(2, round(divisor/4)):
         if divisor % (x * 2 - 1) == 0:
             print("Not prime:" + str(divisor))
@@ -36,9 +43,9 @@ for divisor in divisors:
             break
 
 # Print difference then just manually pick the largest :)
-print(list(set(divisors).difference(not_primes)))
+print(list(set(factors).difference(not_primes)))
 
-# divisors are:
+# factors are:
 # could I have reached this point sooner by finding the halfway divisor? The program was still hammering away past the 8462696833 mark but 
 # I stopped it because I could see /71 was equal to that so I knew there would be no larger divisor found
 71
