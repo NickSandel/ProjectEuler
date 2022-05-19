@@ -2,7 +2,7 @@ import numbers
 oddNumbers = [1,3,5,7,9]
 evenNumbers = [0,2,4,6,8]
 
-numberRange = 600851475143
+numberRange = 20
 divisorList = []
 primes = []
 

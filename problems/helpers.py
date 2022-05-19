@@ -6,13 +6,12 @@ def prime_factors(n):
     p = 2
     factors = {}
 
-    while n >= p * p: # This stops the program looking higher than the square root of n as no new factors will be found there
-        print(n)
-        print(p)
+    while n >= p * p:
         if n % p == 0:
             factors.setdefault(p, 0) # Adds factor if it's not already there
             factors[p] += 1 # Increments count of factor found
-            n = n / p # Don't understand this part... it reduces original n to n / p. I get what it's doing but I don't see why this process ensures we don't find any higher value primes
+            n = n / p # Prime factorization. Each whole (composite) number has only 1 unique set of prime numbers which make it up. All other factors can be made from these primes
+                      # Therefore if you start at the lowest prime and walk up as you reduce n by p the lowest factor you will find will always be a prime number as they're always the lowest base factors
         else:
             # 2 is the first prime, if on 2 go to 3 else skip 2 so even numbers are ignored as they can't be primes
             if p <= 2:

@@ -63,6 +63,8 @@ print(list(set(factors).difference(not_primes)))
 716151937
 8462696833
 
+600851475143
+
 71, 
 839, 
 1471, 
