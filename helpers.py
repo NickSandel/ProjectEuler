@@ -1,3 +1,7 @@
+from math import sqrt
+from math import floor
+
+
 def prime_factors(n):
     """Returns a dictionary of prime: order. For example 100 (prime factors 2x2x5x5) would return {2: 2, 5:2}"""
     if n == 1:
@@ -31,4 +35,26 @@ def is_palindrome(value):
         return True
     else:
         return False
+
+def is_prime(n):
+    if n == 1:
+        return False
+    elif n < 4:
+        return True
+    elif n % 2 == 0:
+        return False
+    elif n < 9:
+        return True
+    elif n % 3 == 0:
+        return False
+    else:
+        r = floor(sqrt(n))
+        f = 5
+        while f <= r:
+            if n % f == 0:
+                return False
+            if n % (f+2) == 0:
+                return False
+            f = f + 6
+        return True
     

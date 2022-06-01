@@ -2,7 +2,7 @@ import numbers
 oddNumbers = [1,3,5,7,9]
 evenNumbers = [0,2,4,6,8]
 
-numberRange = 20
+numberRange = 200000
 divisorList = []
 primes = []
 
@@ -29,9 +29,9 @@ for n in range (numberRange):
             else:
                 if u is divisorList[-1]:
                     primes.append(n)
-                    print(n)
     if n == 5: #The last digit logic removes 5
         primes.append(n)
 		
 print(len(primes))
 print(sorted(primes))
+print(sorted(primes)[10000])
