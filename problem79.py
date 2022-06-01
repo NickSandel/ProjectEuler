@@ -11,9 +11,14 @@
 
 # Read from keylog.txt into array
 
-with open('problems/keylog.txt') as file:
-    lines = file.readlines()
-    lines = [line.rstrip() for line in lines]
+with open('keylog.txt') as file:
+    orig_lines = file.readlines()
+    orig_lines = [line.rstrip() for line in orig_lines]
+
+lines = []
+for line in orig_lines:
+    if line not in lines:
+        lines.append(line)
 
 # # print(lines)
 # # print(lines[0][0])
@@ -91,12 +96,119 @@ with open('problems/keylog.txt') as file:
 # print(first_digits)
 # print(second_digits)
 # print(third_digits)
+
+print(lines)
+
+numbers_used = []
+# Numbers used
+for line in lines:
+    if line[0] not in numbers_used:
+        numbers_used.append(line[0])
+    if line[1] not in numbers_used:
+        numbers_used.append(line[1])
+    if line[2] not in numbers_used:
+        numbers_used.append(line[2])
+
+print(numbers_used)
+['3', '1', '9', '6', '8', '0', '2', '7']
+# So numbers not in use are:
+['4', '5']
+
+for digit in sorted(numbers_used):
+    before = []
+    after = []
+    for line in lines:
+        if line[0] == digit and line[1] not in after:
+            after.append(line[1])
+        if line[0] == digit and line[2] not in after:
+            after.append(line[2])
+
+        if line[1] == digit and line[2] not in after:
+            after.append(line[2])
+        if line[1] == digit and line[0] not in before:
+            before.append(line[0])
+
+        if line[2] == digit and line[1] not in before:
+            before.append(line[2])
+        if line[2] == digit and line[2] not in before:
+            before.append(line[0])
+
+    print(digit)
+    print(before)
+    print(after)
+
+0
+['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0']
+[]
+1
+['3', '7', '7']
+['9', '8', '0', '2', '6']
+2
+['1', '6', '7', '1', '3']
+['9', '0', '8']
+3
+['7']
+['1', '9', '8', '6', '2', '0']
+6
+['7', '3', '1', '7', '7', '3']
+['8', '0', '9', '2']
+7
+[]
+['6', '2', '1', '0', '3', '9', '8']
+8
+['6', '1', '3', '3', '1', '2', '7', '7']
+['0', '9']
+9
+['9', '6', '9', '9', '9', '9', '2', '9', '9', '9', '7', '8']
+['0']
+# Manually look through and determine which order they should come in. 7 is first as it has nothing before it
+# 3 only ever has 7 before it
+# 1 only has 3 and 7 before it... so on reducing down to the smallest possible combo:
+73162890
+
+
+# Maybe analyse the numbers in use and their positions?
+first = []
+second = []
+third = []
+for line in lines:
+    if line[0] not in first:
+        first.append(line[0])
+    if line[1] not in second:
+        second.append(line[1])
+    if line[2] not in third:
+        third.append(line[2])
+
+print(sorted(first))
+print(sorted(second))
+print(sorted(third))
+
+# So 7 has to be the first digit as it doesn't appear second or third in any cases. I knew that already I guess... then 3 should be next as it doesn't appear in the third set of digits anywhere
+# By that logic then 0 goes next as it isn't anywhere else? Or maybe this is flawed and I need to loop back to the first list until those digits are all satisfied?
+73126890
+[     '1', '2', '3', '6', '7', '8']
+[     '1', '2', '3', '6',      '8', '9']
+['0', '1', '2',      '6',      '8', '9']
+
+# Find out which ones come before which
+for digit in first:
+    if digit not in second and digit not in third:
+        print('Digit always comes first: ' + str(digit))
+
+pairs = []
+for line in lines:
+    if [line[0],line[1]] not in pairs:
+        pairs.append([line[0],line[1]])
+
+print(pairs)
+
 import re
 
 combos = [319680180690129620762689762318368710720710629168160689716731736729316729729710769290719680318389162289162718729319790680890362319760316729380319728716,
 319680180690129620762689762318368710720629168160689716731736729316729729710769290719680318389162289162718729319790680890362319760316729380319728716,
 31968018069012962076268976231836871072062916816689716731736729316729729710769290719680318389162289162718729319790680890362319760316729380319728716,
-319680180690129620762689318368710629168160716731736729719290780382282718790890362760329380726]
+319680180690129620762689318368710629168160716731736729719290780382282718790890362760329380726,
+73162890]
 
 # Maybe flip it on it's head and instead work on the combos to reduce it to the smallest number by removing repetition of the 3 digits?
 all_combined = ''.join([line for line in lines])
@@ -107,10 +219,11 @@ while ix < len(all_combined) - 2:
     all_combined = all_combined[0:ix+3] + all_combined[ix+3:].replace(all_combined[ix:ix+3], '')
     ix += 1
 
-print(all_combined)
+#print(all_combined)
 
 # This is slow but does seem to satisfy me in checking if all lines are found in sequence
-for i in range(100000, 999999):
+for i in combos:
+# for i in range(730000000, 739999999):
     found = 0
     for line in lines:
         sequence_found = False
@@ -213,3 +326,11 @@ for i in range(100000, 999999):
 #                 pin.insert(pin.index(line[1])+1, digit)
 #             else:
 #                 pin.append(digit)
+
+# From euler comments:
+print('From comments:')
+with open('keylog.txt') as f:
+    ss=[f.readline()[:-1] for i in range(50)]
+
+print(''.join(list(zip(*sorted([(ch,len(set(''.join([i[:i.find(ch)] for i in ss \
+    if ch in i])))) for ch in set(''.join(ss))],key=lambda x:x[1])))[0]))
