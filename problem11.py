@@ -110,31 +110,30 @@ print(diagonals)
 
 # Turns out I don't need to wrap my head around doing diagonals the other direction as the right side gets the highest number :)
 
-a = [[8, 2, 22, 97], [49, 49, 99, 40], [81, 49, 31, 73], [52, 70, 95, 23]]
-y1 = len(a)
-x1 = 0
-while y1 > 0:
-    x2 = 0
+y1 = 0
+x1 = len(data)-1
+while y1 < len(data):
+    x2 = len(data)-1
     d = []
     y2 = y1
-    while x2 < y1 + 1:
-        d.append(a[y2][x2])
+    while y2 > -1:
+        d.append(data[y2][x2])
         y2 -= 1
-        x2 += 1
-    y1 -= 1
-    print(d)
+        x2 -= 1
+    y1 += 1
+    diagonals.append(d)
 
-    if y1 == len(a)-1:
-        while x1 < len(a):
+    if y1 == len(data)-1:
+        while x1 > - 1:
             x2 = x1
             d = []
             y2 = y1
-            while x2 < y1 + 1:
-                d.append(a[y2][x2])
+            while x2 > -1:
+                d.append(data[y2][x2])
                 y2 -= 1
-                x2 += 1
-            x1 += 1
-            print(d)
+                x2 -= 1
+            x1 -= 1
+            diagonals.append(d)
         break
 
 greatestDiagonalProduct = 0
