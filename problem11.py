@@ -80,7 +80,7 @@ print(greatestColumnProduct)
 #Now for the really tricky one the diagonal. Need to go both ways to cover them all / and \
 diagonals = []
 
-# Covering / first
+# Covering / first starting top left
 y1 = 0
 x1 = 0
 while y1 < len(data):
@@ -108,8 +108,7 @@ while y1 < len(data):
         break
 print(diagonals)
 
-# Turns out I don't need to wrap my head around doing diagonals the other direction as the right side gets the highest number :)
-
+# Covering \ next starting top right
 y1 = 0
 x1 = len(data)-1
 while y1 < len(data):
