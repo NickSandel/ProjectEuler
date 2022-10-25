@@ -139,7 +139,6 @@ new_array=big_array.copy()
 for row_num in range(len(big_array) - 2, -1, -1):
     print(new_array[row_num])
     for row_index in range(len(new_array[row_num])):
-        print(new_array[row_num][row_index])
         row_left = new_array[row_num+1][row_index]
         row_right = new_array[row_num+1][row_index+1]
 
