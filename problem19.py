@@ -34,7 +34,7 @@ print(f"Leap years: {leap_years}") # 25, so 75 non leap years
 
 # Can I do something more clever than brute iteration like finding which days will match in a year 
 # and adding that up over the total then accounting for leap years messing this up for 25 years?
-#                    [3, 0, 3, 2, 3, 2, 3, 3, 2, 3, 2, 3]
+# day_additions =    [3, 0, 3, 2, 3, 2, 3, 3, 2, 3, 2, 3]
 days_matching_1900 = [1, 4, 4, 7, 2, 5, 7, 3, 6, 1, 4, 6]
 sunday_count = 0
 for i in range(1, 2000-1900 + 1):
