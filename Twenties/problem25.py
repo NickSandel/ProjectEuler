@@ -36,9 +36,7 @@ f1 = 1
 f2 = 1
 i = 2
 while f2 < 10**999:
-    f2_old = f2
-    f2 = f1 + f2
-    f1 = f2_old
+    f1, f2 = f2, f1 + f2
     i += 1
 print(f2)
 print(i)
