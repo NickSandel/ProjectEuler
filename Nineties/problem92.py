@@ -20,15 +20,18 @@ def add_square_digits(n):
 total = 0
 num = 1
 i = 1
-while i < 10000000:
+while i < 100:
     num = i
+    nums = ''
     while 1 == 1:
         num = add_square_digits(num)
+        nums += str(num) + ' '
         if num == 1:
             break
         if num == 89:
             total += 1
             break
+    print(nums)
     i += 1
     
 print(total)
