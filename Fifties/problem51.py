@@ -5,85 +5,10 @@
 
 # Find the smallest prime which, by replacing part of the number (not necessarily adjacent digits) with the same digit, is part of an eight prime value family.
 
-# Hmm ok seems like 2 ways to tackle this:
-# 1) Iterate through loads of numbers until you find the pattern
-# 2) Generate primes and look for the pattern. Is there any point starting too low?
 import sys
  
 # setting path
 sys.path.append('../Euler')
-from common.helpers import SieveOfEratosthenes
-# As usual start with the examples
-primes = SieveOfEratosthenes(99)
-# Remove single digit primes
-primes = [prime for prime in primes if prime > 10]
-
-# Group the primes by the last digit
-# primesByLastDigit = {}
-# for prime in primes:
-#     lastDigit = str(prime)[-1]
-#     if lastDigit in primesByLastDigit:
-#         primesByLastDigit[lastDigit].append(prime)
-#     else:
-#         primesByLastDigit[lastDigit] = [prime]
-
-# # Show highest count group
-# highestCount = 0
-# highestCountGroup = None
-# for group in primesByLastDigit:
-#     if len(primesByLastDigit[group]) > highestCount:
-#         highestCount = len(primesByLastDigit[group])
-#         highestCountGroup = group
-
-# print(f"Highest count group: {highestCountGroup} with {highestCount} primes {primesByLastDigit[highestCountGroup]}")
-
-# # Now look for the pattern in 5 digit numbers
-# primes = SieveOfEratosthenes(99999)
-
-# # Remove up to 4 digit primes
-# primes = [prime for prime in primes if prime > 1000]
-
-# # Group the primes by the last digit
-# primesByLastDigit = {}
-# for prime in primes:
-#     lastDigit = str(prime)[-1]
-#     if lastDigit in primesByLastDigit:
-#         primesByLastDigit[lastDigit].append(prime)
-#     else:
-#         primesByLastDigit[lastDigit] = [prime]
-
-# # Show highest count group
-# highestCount = 0
-# highestCountGroup = None
-# for group in primesByLastDigit:
-#     if len(primesByLastDigit[group]) > highestCount:
-#         highestCount = len(primesByLastDigit[group])
-#         highestCountGroup = group
-
-# # Now run through the groups and create sub groups which have repeated digits
-# prime_subgroups = {}
-# # Seed the subgroups with the last digit groups
-# for group in primesByLastDigit:
-#     prime_subgroups[group] = {}
-
-# print(prime_subgroups)
-
-# # Now iterate through the primes in the group and look for at least 2 digits being the same and add them to the subgroups
-# for group in primesByLastDigit:
-#     for prime in primesByLastDigit[group]:
-#         primeString = str(prime)
-#         for i in range(0, len(primeString)):
-#             for j in range(i+1, len(primeString)):
-#                 if primeString[i] == primeString[j]:
-#                     if primeString[i] in prime_subgroups[group]:
-#                         prime_subgroups[group][primeString[i]].append(prime)
-#                     else:
-#                         prime_subgroups[group][primeString[i]] = [prime]
-
-# print(prime_subgroups)
-
-# I wonder if I am just attacking this the wrong way. What if I use a set length of digits and then look for the pattern in that?
-# It must end with a 1,3,7 or 9 to be prime so why not set patterns and look for how many primes fit that pattern?
 from common.helpers import is_prime
 
 # Start with the 5 digit numbers
@@ -94,35 +19,35 @@ from common.helpers import is_prime
 # [*][0-9][*][0-9][1,3,7,9]
 # [*][*][0-9][0-9][1,3,7,9]
 # How many combos where last digit is fixed and at least 2 others have to be fixed? But the rest can be 0-9
-largest_group = []
-for last_digit in [1,3,7,9]:
-    # Fix the first 2 digits
-    for first_digit in range(1,10):
-        for second_digit in range(0,10):
-            group_1 = []
-            group_2 = []
-            group_3 = []
-            # Now fix the last 2 digits
-            for repeated_digit in range(0,10):
-                number = int(f"{first_digit}{second_digit}{repeated_digit}{repeated_digit}{last_digit}")
-                if is_prime(number):
-                    group_1.append(number)
-                number = int(f"{first_digit}{repeated_digit}{repeated_digit}{second_digit}{last_digit}")
-                if is_prime(number):
-                    group_2.append(number)
-                number = int(f"{first_digit}{repeated_digit}{second_digit}{repeated_digit}{last_digit}")
-                if is_prime(number):
-                    group_3.append(number)
+# largest_group = []
+# for last_digit in [1,3,7,9]:
+#     # Fix the first 2 digits
+#     for first_digit in range(1,10):
+#         for second_digit in range(0,10):
+#             group_1 = []
+#             group_2 = []
+#             group_3 = []
+#             # Now fix the last 2 digits
+#             for repeated_digit in range(0,10):
+#                 number = int(f"{first_digit}{second_digit}{repeated_digit}{repeated_digit}{last_digit}")
+#                 if is_prime(number):
+#                     group_1.append(number)
+#                 number = int(f"{first_digit}{repeated_digit}{repeated_digit}{second_digit}{last_digit}")
+#                 if is_prime(number):
+#                     group_2.append(number)
+#                 number = int(f"{first_digit}{repeated_digit}{second_digit}{repeated_digit}{last_digit}")
+#                 if is_prime(number):
+#                     group_3.append(number)
 
-            if len(group_1) > len(largest_group):
-                largest_group = group_1
-            if len(group_2) > len(largest_group):
-                largest_group = group_2
-            if len(group_3) > len(largest_group):
-                largest_group = group_3
+#             if len(group_1) > len(largest_group):
+#                 largest_group = group_1
+#             if len(group_2) > len(largest_group):
+#                 largest_group = group_2
+#             if len(group_3) > len(largest_group):
+#                 largest_group = group_3
 
-print(largest_group)
-# Fuck me this worked!
+# print(largest_group)
+# # Fuck me this worked!
 
 # How do I code it up to be dynamic?
 # How do I set the combination sequence in the first place? 4!(digits to vary)/(2! (stars)/2! (numbers)) = 6
@@ -178,46 +103,122 @@ def perm_unique_helper(listunique,result_list,d):
                 i.occurrences+=1
 
 
-# Now let's try with a 6 digit number
-# How many combos where last digit is fixed and at least 2 others have to be fixed? But the rest can be 0-9
-a = list(perm_unique(["*","*","*","N1","N2"]))
-# This is the mask of number patterns to check. * is a repeated number and N is 0-9
-print(a)
-last_digit = [1,3,7,9]
+# # Now let's try with a 6 digit number
+# # How many combos where last digit is fixed and at least 2 others have to be fixed? But the rest can be 0-9
+# a = list(perm_unique(["*","*","*","N1","N2"]))
 
-numbers_to_check = []
-for i in range(0, len(a)):
-    for last in last_digit:
-        for n1 in range(0,10):
-            for n2 in range(0,10):
-                # for n3 in range(0,10):
-                    # For each mask in the list make a number where * is replaced by 0-9 and N is replaced by 0-9
+### This is how it was actually solved ###
+# # This is the mask of number patterns to check. * is a repeated number and N is 0-9
+# print(a)
+# last_digit = [1,3,7,9]
+
+# numbers_to_check = []
+# for i in range(0, len(a)):
+#     for last in last_digit:
+#         for n1 in range(0,10):
+#             for n2 in range(0,10):
+#                 # for n3 in range(0,10):
+#                     # For each mask in the list make a number where * is replaced by 0-9 and N is replaced by 0-9
+#                 repeated_set = []
+#                 for repeated_digit in range(0,10):
+#                     # For each repeated digit make a 3 digit number from a where * is replaced by repeated_digit
+#                     number = [0,0,0,0,0,0]
+#                     for index, digit in enumerate(a[i]):
+#                         # If index is 0 and repeated_digit is 0 or n1 is 0 or n2 is 0 or n3 is 0 then skip
+#                         if digit == "*":
+#                             number[index] = repeated_digit
+#                         elif digit == "N1":
+#                             number[index] = n1
+#                         elif digit == "N2":
+#                             number[index] = n2
+#                         # elif digit == "N3":
+#                         #     number[index] = n3
+#                     number[5] = last
+#                     #if len(str(int("".join(map(str,number))))) == 6:
+#                     repeated_set.append(number)
+#                 primes = 0
+#                 # For each array turn each member into a number and check if it's prime
+#                 for number in repeated_set:
+#                     number = int("".join(map(str,number)))
+#                     if len(str(number)) == 6:
+#                         if is_prime(number):
+#                             primes += 1
+#                 if primes == 8:
+#                     print(f"Found 8 primes in the group {repeated_set}")
+#                     break
+### This is how it was actually solved ###
+
+# BUT I thought how hard is it to make a more generic method that can do this for any number of digits and any number of repeats
+
+def get_combos(number_of_repeats, number_of_numbers):
+    # Create a list of all the possible combinations of numbers and stars, add a digit to the end of each N to make it unique
+    combos = []
+    # Add a star to combos for each repeat
+    for i in range(0, number_of_repeats):
+        combos.append("*")
+    # Add a number to combos for each number with a unique digit at the end
+    for i in range(0, number_of_numbers):
+        combos.append(f"N{i}")
+
+    combos_all = list(perm_unique(combos))
+    return combos_all
+
+# Try making a generic function for this
+def find_primes_in_length(digits, number_of_primes):
+    # Start with number of repeats set to 2 and number of numbers set to digits - 2 - 1
+    number_of_repeats = 2
+    number_of_numbers = digits - 2 - 1
+
+    for i in range(0, digits - 3):
+        combos_all = get_combos(number_of_repeats, number_of_numbers)
+        keep_going = run_combos_all(combos_all, digits, number_of_numbers, number_of_primes)
+        if not keep_going:
+            break
+        print(f"Number of repeats: {number_of_repeats}, Number of numbers: {number_of_numbers}")
+        number_of_repeats += 1
+        number_of_numbers -= 1
+
+def run_combos_all(combos_all, digits, number_of_numbers, number_of_primes):
+    last_digit = [1,3,7,9]
+    for combo in range(0, len(combos_all)):
+        for last in last_digit:
+            numbered_masks = []
+            # For each n in combo loop through 0-9 and replace N{0-9} with n
+            for n in range(0,10**number_of_numbers):
+                number = []
+                for index, digit in enumerate(combos_all[combo]):
+                    number.append(digit)
+                # For each repeated digit make a 3 digit number from combos_all where * is replaced by repeated_digit
+                if len(str(n)) < number_of_numbers:
+                    n = str(n).zfill(number_of_numbers)
+                else:
+                    n = str(n)
+                for index, digit in enumerate(number):
+                    if digit.startswith("N"): # This isn't working because it can only hit one of the N values. Need to set them all then loop through each repeated item
+                        number[index] = n[int(digit.replace("N",""))]
+                number.append(last)
+                numbered_masks.append(number)
+
+            # Now we have a list of all the masks to check. Now we need to loop through each mask and check if it's prime
+            for maski, mask in enumerate(numbered_masks):
+                repeated_set = []
                 for repeated_digit in range(0,10):
-                    # For each repeated digit make a 3 digit number from a where * is replaced by repeated_digit
-                    number = [0,0,0,0,0,0]
-                    for index, digit in enumerate(a[i]):
+                    repeated_number = mask.copy()
+                    for index, digit in enumerate(combos_all[combo]):
                         # If index is 0 and repeated_digit is 0 or n1 is 0 or n2 is 0 or n3 is 0 then skip
                         if digit == "*":
-                            number[index] = repeated_digit
-                        elif digit == "N1":
-                            number[index] = n1
-                        elif digit == "N2":
-                            number[index] = n2
-                        # elif digit == "N3":
-                        #     number[index] = n3
-                    number[5] = last
-                    #if len(str(int("".join(map(str,number))))) == 6:
-                    numbers_to_check.append(number)
+                            repeated_number[index] = repeated_digit
+                    repeated_set.append(repeated_number)
+                primes = 0
+                # For each array turn each member into a number and check if it's prime
+                for r in repeated_set:
+                    number = int("".join(map(str,r)))
+                    if len(str(number)) == digits:
+                        if is_prime(number):
+                            primes += 1
+                if primes == number_of_primes:
+                    print(f"Found {number_of_primes} primes in the group {repeated_set}")
+                    return False
+    return True
 
-print(len(numbers_to_check))
-for tens in range(1,int((len(numbers_to_check))/10)+1):
-    primes = 0
-    # For each array turn each member into a number and check if it's prime
-    for number in numbers_to_check[tens*10-10:tens*10]:
-        number = int("".join(map(str,number)))
-        if len(str(number)) == 6:
-            if is_prime(number):
-                primes += 1
-    if primes == 8:
-        print(f"Found 8 primes in the group {numbers_to_check[tens*10-10:tens*10]}")
-        # break
+find_primes_in_length(6, 8)
