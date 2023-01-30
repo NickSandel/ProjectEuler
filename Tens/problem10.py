@@ -17,8 +17,11 @@
 # print(sum_primes)
 
 # New method from reading the docs advice
-
-from helpers import SieveOfEratosthenes
+import sys
+ 
+# setting path
+sys.path.append('../Euler')
+from common.helpers import SieveOfEratosthenes
 
 primes = SieveOfEratosthenes(2000000)
 sum_primes = 0

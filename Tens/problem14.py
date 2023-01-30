@@ -39,8 +39,11 @@ def collatz(start_num):
             num = 3 * num + 1
             chain += 1
     return chain
-
-from helpers import is_prime
+import sys
+ 
+# setting path
+sys.path.append('../Euler')
+from common.helpers import is_prime
 
 largest_chain = 0
 largest_chain_num = 0

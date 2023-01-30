@@ -84,4 +84,3 @@ def SieveOfEratosthenes(num):
         if prime[p]:
             primes.append(p)
     return primes
-    

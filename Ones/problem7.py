@@ -3,9 +3,12 @@
 # What is the 10 001st prime number?
 
 # Ha just used my prime_lister.py. Set n to 200,000 and let it churn away it found 17984 primes so went a bit overkill but did then pull out the one I wanted. Code copied here for completeness:
-
+import sys
+ 
+# setting path
+sys.path.append('../Euler')
 import numbers
-from helpers import is_prime
+from common.helpers import is_prime
 oddNumbers = [1,3,5,7,9]
 evenNumbers = [0,2,4,6,8]
 
