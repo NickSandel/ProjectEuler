@@ -6,6 +6,10 @@
 
 # HINT: Some products can be obtained in more than one way so be sure to only include it once in your sum.
 
+# Time the following code
+import time
+start = time.time()
+
 def is_pandigital(multiplicand, multiplier, product):
     # Turn the numbers into a list of digits
     multiplicand = sorted(map(int, str(multiplicand)))
@@ -37,4 +41,40 @@ for multiplacand in range(1,99):
 
 print(pandigital_products)
 print(sum(pandigital_products))
-        
+
+# Print the time taken to run the code
+print(time.time() - start)
+
+# Answer: 45228
+
+# Try this again but go for permutations instead of checking if it's pandigital
+# I think I can do this by generating all the permutations of 1 to 9 and then checking if there is a valid multiplication present
+
+start = time.time()
+import itertools
+permutations = itertools.permutations(range(1,10))
+
+# I can cheat because from my solution I know the last 4 digits will be the product
+pandigital_products = []
+for perm in permutations:
+    product = int(''.join(map(str, perm[-4:])))
+    # Check the combinations of the first 5 digits but I only need to separate them into 1 and 4 and 2 and 3 pairs
+
+    multiplicand = int(''.join(map(str, perm[0:1])))
+    multiplier = int(''.join(map(str, perm[1:5])))
+    if multiplicand * multiplier == product:
+        print(multiplicand, multiplier, product)
+        if product not in pandigital_products:
+                pandigital_products.append(product)
+
+
+    multiplicand = int(''.join(map(str, perm[0:2])))
+    multiplier = int(''.join(map(str, perm[2:5])))
+    if multiplicand * multiplier == product:
+        print(multiplicand, multiplier, product)
+        if product not in pandigital_products:
+                pandigital_products.append(product)
+
+print(pandigital_products)
+print(sum(pandigital_products))
+print(time.time() - start) # This method is significantly faster
