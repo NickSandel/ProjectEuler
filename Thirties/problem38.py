@@ -52,6 +52,6 @@ for d2 in range(0,9):
 for d3 in range(0,999):
     concat_prod = concat_multiples(9000 + d3, [1,2])
     if is_pandigital(concat_prod):
-        print(f"{90 + d2} * [1,2] makes the pandigital value: {concat_prod}")
+        print(f"{9000 + d3} * [1,2] makes the pandigital value: {concat_prod}")
 
 # Bam answer is 932718654

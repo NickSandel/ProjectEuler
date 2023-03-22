@@ -17,6 +17,9 @@
 # I think start with the highest divisible number of 12 < 1000 which is 83*12=996 as the golden ratio must exist in there 
 # then maybe step up and down the hypotenuse value to tell if there are more combinations?
 
+# Start a timer
+import time
+start_time = time.time()
 def count_combos(p:int):
     # First find the golden ratio from this p and check it adds up
     a = (p / 12) * 3
@@ -24,10 +27,9 @@ def count_combos(p:int):
     c = (p / 12) * 5
     count = 0
     if a**2 + b**2 == c**2:
-        # print(f"a: {a}, b: {b}, c:{c}")
         count += 1
 
-    # Maybe the hypotenuse can never get shorter but it can get longer?
+    # Assume the hypotenuse can never get shorter but it can get longer
     c2 = c
     while c2 < p:
         c2 += 1
@@ -37,22 +39,22 @@ def count_combos(p:int):
             b2 += 1
             a2 -= 1
             if a2**2 + b2**2 == c2**2:
-                # print(f"a: {a2}, b: {b2}, c:{c2}")
                 count += 1
-
     return count
 
+# Check the count_combos function works as expected
 print(count_combos(120))
 print(count_combos(1200))
 
 p = 1000
-highest_combo_p = 0
+highest_combo_count = 0
 while p > 0:
+    # Assume this setup can only be found in values of p divisible by 12
     if p % 12 == 0:
         combos = count_combos(p)
-        if combos > highest_combo_p:
-            highest_combo_p = combos
+        if combos > highest_combo_count:
+            highest_combo_count = combos
             print(f"New highest combo with combos = {combos} from p {p}")
     p -= 1
 
-print(highest_combo_p)
+print(f"Time taken: {time.time() - start_time}")
