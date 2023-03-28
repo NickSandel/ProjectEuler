@@ -23,16 +23,19 @@ print(max([len(word) for word in words]))
 
 # So if the largest words is 14 characters and the largest letter can be 26 the largest triangular number needed to check is 14*26=364
 
+def triangular_number_generator():
+    index = 1
+    while True:
+        new_number = 0.5*index*(index+1)
+        yield int(new_number)
+        index += 1
+
 triangular_numbers = []
-index = 1
-while 1==1:
-    new_number = 0.5*index*(index+1)
-    # Stop loop if new number is greater than 364
-    if new_number > 364:
+for tn in triangular_number_generator():
+    if tn > 364:
         break
     else:
-        triangular_numbers.append(int(new_number))
-    index += 1
+        triangular_numbers.append(tn)
 
 print(triangular_numbers)
 
