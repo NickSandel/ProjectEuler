@@ -17,7 +17,6 @@
 import sys
  
 # setting path
-sys.path.append('../Euler')
 from common.helpers import SieveOfEratosthenes, is_prime
 
 def is_truncatable_prime(prime):

@@ -6,7 +6,6 @@
 
 # setting path
 import sys
-sys.path.append('../Euler')
 from common.helpers import SieveOfEratosthenes, is_prime
 
 # primes = SieveOfEratosthenes(987654321)

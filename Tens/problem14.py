@@ -42,7 +42,6 @@ def collatz(start_num):
 import sys
  
 # setting path
-sys.path.append('../Euler')
 from common.helpers import is_prime
 
 largest_chain = 0

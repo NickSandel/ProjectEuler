@@ -6,7 +6,6 @@
 import sys
  
 # setting path
-sys.path.append('../Euler')
 import numbers
 from common.helpers import is_prime
 oddNumbers = [1,3,5,7,9]

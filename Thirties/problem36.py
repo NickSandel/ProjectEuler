@@ -7,7 +7,6 @@
 import sys
  
 # setting path
-sys.path.append('../Euler')
 from common.helpers import is_palindrome
 
 bit_pals = []

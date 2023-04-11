@@ -5,3 +5,6 @@ https://projecteuler.net/about
 On Windows:
 > python -m virtualenv venv
 > venv\Scripts\activate
+
+# To make use of the common libraries without messing about with sys.path run this to install euler as a module:
+pip install -e .

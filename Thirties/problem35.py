@@ -11,7 +11,6 @@
 import sys
  
 # setting path
-sys.path.append('../Euler')
 from common.helpers import SieveOfEratosthenes, is_prime
 
 primes = SieveOfEratosthenes(1000000)

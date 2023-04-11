@@ -8,7 +8,6 @@
 import sys
  
 # setting path
-sys.path.append('../Euler')
 from common.helpers import is_prime
 
 # Start with the 5 digit numbers
