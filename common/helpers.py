@@ -114,3 +114,14 @@ def is_pandigital(number: str):
         if d != str(i + 1):
             return False
     return True
+
+def is_pentagonal(n: int):
+    # A number is pentagonal if it can be calculated with the formula: Pn=n(3n−1)/2
+    # So we can solve for n and see if it's an integer
+    n = (1 + sqrt(1 + 24*n))/6
+    return n.is_integer()
+
+def is_triangular(n: int):
+    # Wikipedia gives me this formula for checking if a number is triangular:
+    n = ((sqrt(1 + 8*n))-1)/2
+    return n.is_integer()
