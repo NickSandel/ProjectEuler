@@ -78,11 +78,11 @@ def SieveOfEratosthenes(num):
                 prime[i] = False
         p += 1
 
-    primes = []
+    primes = set()
     # Print all prime numbers
     for p in range(2, num+1):
         if prime[p]:
-            primes.append(p)
+            primes.add(p)
     return primes
 
 class unique_element:
@@ -125,3 +125,6 @@ def is_triangular(n: int):
     # Wikipedia gives me this formula for checking if a number is triangular:
     n = ((sqrt(1 + 8*n))-1)/2
     return n.is_integer()
+
+def is_permutation(item:int, match:int):
+    return sorted(str(item)) == sorted(str(match))
