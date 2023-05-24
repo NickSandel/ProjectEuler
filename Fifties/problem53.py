@@ -18,9 +18,13 @@ import math
 
 counter = 0
 for n in range(23, 101):
+    found_start = False
     for r in range(n-1, 0, -1):
         if (math.factorial(n)/ (math.factorial(r) * math.factorial(n-r))) > 1000000:
             counter += 1
+            found_start = True
+        elif found_start:
+            break
             # print(f"Found one over a million for n = {n} and r = {r}")
 
 print(counter)
