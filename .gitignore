@@ -1,3 +1,8 @@
 problems/__pycache__/*
 ./venv/
 */__pycache__/*
+test.py
+.qodo
+euler.egg-info/dependency_links.txt
+euler.egg-info/SOURCES.txt
+euler.egg-info/top_level.txt
